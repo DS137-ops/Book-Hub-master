@@ -6,14 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-    <form id="form">
-    <input type="text" name="email" id="name"><input type="password" name="password" id="password">
-    <button type="submit">Login</button>
-    </form>
-    <div id="responseMessage"></div>
+    <form id="loginForm">
+        <label for="email">email:</label>
+        <input type="text" id="email" name="email" required>
+        <br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        <button type="submit">Login</button>
+      </form>
+    
+      <div id="responseMessage"></div>
+      <div id="state"></div>
     <script>
         // Select the form and response message div
-const loginForm = document.getElementById("form");
+// Select the form and response message div
+const loginForm = document.getElementById("loginForm");
 const responseMessage = document.getElementById("responseMessage");
 
 // Add an event listener to handle the form submission
@@ -21,7 +29,7 @@ loginForm.addEventListener("submit", async (event) => {
   event.preventDefault(); // Prevent the form from refreshing the page
 
   // Get the form data
-  const username = document.getElementById("email").value;
+  const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   try {
@@ -31,8 +39,9 @@ loginForm.addEventListener("submit", async (event) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
+     document.getElementById("state").value = response.status
 
     // Handle the response
     if (response.ok) {
@@ -48,6 +57,7 @@ loginForm.addEventListener("submit", async (event) => {
     console.error(err);
   }
 });
+
 
     </script>
 </body>
